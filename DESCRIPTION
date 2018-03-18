@@ -1,0 +1,46 @@
+Package: regressoR.quality
+Type: Package
+Title: An R Package Providing Quality Metrics for Input/Output Regression
+Version: 0.8.0
+Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
+Description: This package provides quality metrics to measure the error of
+    regression models that map an input variable \code{x} to an output
+    variable \code{y}. The goal is to encapsulate primitives for such
+    metrics into a separate package so that they can easily be extended
+    and improved in the near future. Each quality measure is an instance
+    of S4 class \code{\link{RegressionQualityMetric}}, which provides
+    several fields, including a function for computing the metric, the
+    original \code{x} and \code{y} data, and optionally functions for
+    computing the Jacobian, the residuals, and a weight vector. Such
+    instances are created by functions which accept two vectors \code{x}
+    and \code{y} as parameter and return, well, an instance of
+    \code{\link{RegressionQualityMetric}}.
+    The way the quality metrics are structured allows for linear and
+    non-linear regression as well as for using numerical optimization
+    methods to fit parametric models.
+    Currently, we only support some simple weighted root-mean-square-error
+    based measures, where the default one weights samples based on their
+    inverse square root of the absolute value (in order to accommodate
+    values differing vastly in scale) with fixes for zero values.
+    However, in the future, the creation of the quality metrics could involve
+    outlier detection and decrease their weights accordingly. This would
+    improve the robustness of the regression procedure.
+License: LGPL-3
+Encoding: UTF-8
+LazyData: true
+URL: http://www.github.com/thomasWeise/regressoR.quality
+BugReports: http://www.github.com/thomasWeise/regressoR.quality/issues
+Imports: methods (>= 3.3.2),
+         stats (>= 3.3.2)
+Suggests: testthat (>= 2.0.0),
+          roxygen2 (>= 6.0.1)
+Collate: 
+    'RegressionQualityMetric.R'
+    'fixInverseAbsoluteWeights.R'
+    'weightedRmse.R'
+    'sqrtInverseWeightedRmse.R'
+    'default.R'
+    'inverseWeightedRmse.R'
+    'rmse.R'
+RoxygenNote: 6.0.1.9000
