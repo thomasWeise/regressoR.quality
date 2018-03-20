@@ -1,10 +1,11 @@
 #' @include weightedRmse.R
 #' @include fixInverseAbsoluteWeights.R
 
-#' @title Create a Root-Mean Square Error Quality RegressionQualityMetric where the Weights are the Inverse Absolute \code{y} Values
+#' @title Create a Root-Mean Square Error Quality RegressionQualityMetric where
+#'   the Weights are the Inverse Absolute \code{y} Values
 #'
 #' @description Create a model quality metric based on the root mean square
-#'   error, using the inverse absolute \code{y} values as weights.
+#' error, using the inverse absolute \code{y} values as weights.
 #'
 #' The idea behind this method is to provide a weighted quality measure which
 #' can handle both very large and very small values of \code{y}. Say you want to
@@ -26,10 +27,10 @@
 #'
 #' @param x the input coordinates
 #' @param y the output coordinates
-#' @return a \code{\link{RegressionQualityMetric}} based on the RMSE weighted by the
-#'   inverse absolute \code{y} values.
-#' @export inverseWeightedRmse
-#' @seealso new
-#' @seealso weightedRmse
-inverseWeightedRmse <- function(x, y)
-  weightedRmse(x, y, .fixInverseAbsoluteWeights(base::abs(y)))
+#' @return a \code{\link{RegressionQualityMetric}} based on the RMSE weighted by
+#'   the inverse absolute \code{y} values.
+#' @export RegressionQualityMetric.inverseWeightedRmse
+#' @seealso RegressionQualityMetric.new
+#' @seealso RegressionQualityMetric.weightedRmse
+RegressionQualityMetric.inverseWeightedRmse <- function(x, y)
+  RegressionQualityMetric.weightedRmse(x, y, .fixInverseAbsoluteWeights(base::abs(y)))

@@ -2,12 +2,17 @@
 # @description This method translates inverse weights to weights by taking care
 #   of zero values
 # @param inverseAbsoluteWeights the inverse weights
-# @return the actual weights, or \code{NULL} if no actual weights can be
-#   computed
+# @return the actual weights, or \code{NULL} if no actual weights can or need to
+#   be computed
 .fixInverseAbsoluteWeights <- function(inverseAbsoluteWeights=NULL) {
   max1 <- -Inf;
   max2 <- -Inf;
   min1 <- +Inf;
+
+  # if there is only a single value, it is not necessary to weight it
+  if(base::length(inverseAbsoluteWeights) <= 1L) {
+    return(NULL);
+  }
 
   # find the two biggest and 1 smallest inverse weights
   for(weight in inverseAbsoluteWeights) {

@@ -1,7 +1,7 @@
 library("regressoR.quality")
-context("weightedRmse")
+context("RegressionQualityMetric.weightedRmse")
 
-test_that("Test weightedRmse", {
+test_that("Test RegressionQualityMetric.weightedRmse", {
   x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   origpar <- c(2, 0.2, -0.1, 0.9);
@@ -10,7 +10,7 @@ test_that("Test weightedRmse", {
   y <- g(x);
   weights <- 0.5+0.3*runif(length(x));
 
-  rmse <- weightedRmse(x, y, weights);
+  rmse <- RegressionQualityMetric.weightedRmse(x, y, weights);
   validObject(rmse)
   expect_equal(is.null(rmse@quality), FALSE)
   expect_equal(is.null(rmse@residuals), FALSE)
@@ -53,13 +53,13 @@ test_that("Test weightedRmse", {
 
 
 
-test_that("Test weightedRmse", {
+test_that("Test RegressionQualityMetric.weightedRmse", {
   x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   par <- c(-4, 3, -2, 2);
   y <- f(x, par);
   weights <- 0.1+runif(length(y))
-  metric <- weightedRmse(x, y, weights);
+  metric <- RegressionQualityMetric.weightedRmse(x, y, weights);
 
   ft <- function(x) f(x, par)
   expect_equal(metric@quality(ft), 0)

@@ -9,7 +9,7 @@ test_that("Test inverseWeightedRmse", {
   gradient <- function(x, par) { c(1, x, x^2, x^3) };
   y <- g(x);
 
-  rmse <- inverseWeightedRmse(x, y);
+  rmse <- RegressionQualityMetric.inverseWeightedRmse(x, y);
   validObject(rmse)
   expect_equal(is.null(rmse@quality), FALSE)
   expect_equal(is.null(rmse@residuals), FALSE)
@@ -57,7 +57,7 @@ test_that("Test inverseWeightedRmse", {
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   par <- c(-4, 3, -2, 2);
   y <- f(x, par);
-  metric <- inverseWeightedRmse(x, y);
+  metric <- RegressionQualityMetric.inverseWeightedRmse(x, y);
 
   ft <- function(x) f(x, par)
   expect_equal(metric@quality(ft), 0)

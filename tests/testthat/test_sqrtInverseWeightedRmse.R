@@ -1,7 +1,7 @@
 library("regressoR.quality")
-context("sqrtInverseWeightedRmse")
+context("RegressionQualityMetric.sqrtInverseWeightedRmse")
 
-test_that("Test sqrtInverseWeightedRmse", {
+test_that("Test RegressionQualityMetric.sqrtInverseWeightedRmse", {
   x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   origpar <- c(2, 0.2, -0.1, 0.9);
@@ -9,7 +9,7 @@ test_that("Test sqrtInverseWeightedRmse", {
   gradient <- function(x, par) { c(1, x, x^2, x^3) };
   y <- g(x);
 
-  rmse <- sqrtInverseWeightedRmse(x, y);
+  rmse <- RegressionQualityMetric.sqrtInverseWeightedRmse(x, y);
   validObject(rmse)
   expect_equal(is.null(rmse@quality), FALSE)
   expect_equal(is.null(rmse@residuals), FALSE)
@@ -51,12 +51,12 @@ test_that("Test sqrtInverseWeightedRmse", {
 })
 
 
-test_that("Test sqrtInverseWeightedRmse", {
+test_that("Test RegressionQualityMetric.sqrtInverseWeightedRmse", {
   x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   par <- c(-4, 3, -2, 2);
   y <- f(x, par);
-  metric <- sqrtInverseWeightedRmse(x, y);
+  metric <- RegressionQualityMetric.sqrtInverseWeightedRmse(x, y);
 
   ft <- function(x) f(x, par)
   expect_equal(metric@quality(ft), 0)

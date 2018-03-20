@@ -1,27 +1,27 @@
 #' @include RegressionQualityMetric.R
 
-#' @title Create a Weightd Root-Mean Square Error Quality RegressionQualityMetric with Given
-#'   Weights
+#' @title Create a Weightd Root-Mean Square Error Quality
+#'   RegressionQualityMetric with Given Weights
 #'
 #' @description Create a model quality metric based on the \emph{weighted} root
-#'   mean square error.
+#' mean square error.
 #'
-#'   Weights can be provided via the parameter \code{weights} and are multiplied
-#'   to the errors before the squaring. If no weights are provided (or
-#'   \code{weights==NULL}), an un-weighted RMSE measure will be created,
-#'   exactly as by \code{\link{rmse}}.
+#' Weights can be provided via the parameter \code{weights} and are multiplied
+#' to the errors before the squaring. If no weights are provided (or
+#' \code{weights==NULL}), an un-weighted RMSE measure will be created, exactly
+#' as by \code{\link{RegressionQualityMetric.rmse}}.
 #'
 #' @param x the input coordinates
 #' @param y the output coordinates
 #' @param weights \code{NULL} by default, in which case an un-weighted RMSE will
 #'   be created
 #' @return a \code{\link{RegressionQualityMetric}} based on the weighted RMSE
-#' @export weightedRmse
+#' @export RegressionQualityMetric.weightedRmse
 #' @seealso RegressionQualityMetric.new
-#' @seealso rmse
-weightedRmse <- function(x, y, weights=NULL) {
+#' @seealso RegressionQualityMetric.rmse
+RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
    weights <- base::force(weights);
-   if(base::is.null(weights)) {
+   if(base::is.null(weights) || (base::length(weights) <= 1L)) {
      result <- RegressionQualityMetric.new(
        quality = function(f, ...) {
          z <- (y - f(x, ...));

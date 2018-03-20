@@ -9,7 +9,7 @@ test_that("Test rmse", {
   gradient <- function(x, par) { c(1, x, x^2, x^3) };
   y <- g(x);
 
-  rmse <- rmse(x, y);
+  rmse <- RegressionQualityMetric.rmse(x, y);
   validObject(rmse)
   expect_equal(is.null(rmse@quality), FALSE)
   expect_equal(is.null(rmse@residuals), FALSE)
@@ -56,7 +56,7 @@ test_that("Test rmse", {
   f <- function(x, par) { par[1] + (par[2] * x) + (par[3] * (x^2)) + (par[4] * (x^3)) };
   par <- c(-4, 3, -2, 2);
   y <- f(x, par);
-  metric <- rmse(x, y);
+  metric <- RegressionQualityMetric.rmse(x, y);
 
   ft <- function(x) f(x, par)
   expect_equal(metric@quality(ft), 0)
