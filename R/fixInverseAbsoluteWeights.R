@@ -10,7 +10,7 @@
   min1 <- +Inf;
 
   # if there is only a single value, it is not necessary to weight it
-  if(base::length(inverseAbsoluteWeights) <= 1L) {
+  if(length(inverseAbsoluteWeights) <= 1L) {
     return(NULL);
   }
 
@@ -29,19 +29,19 @@
     }
   }
 
-  if((min1 > 0) && base::is.finite(min1)) {
+  if((min1 > 0) && is.finite(min1)) {
     # ok, the smallest absolute output value is bigger than 0,
     # so we do not need any 0-handling
     return(1 / inverseAbsoluteWeights);
   }
-  if((max1 <= 0) || (!(base::is.finite(max1)))) {
+  if((max1 <= 0) || (!(is.finite(max1)))) {
     # there is no finite non-zero value, so we do not need to use weights
     return(NULL);
   }
   # expect some in-finite weights, which we then have to fix
   weights <- (1 / inverseAbsoluteWeights);
   zeroWeight <- 0;
-  if((max1 > max2) && (max2 > 0) && base::is.finite(max2)) {
+  if((max1 > max2) && (max2 > 0) && is.finite(max2)) {
     # if we have two distinct weights larger than 0
     # we can extend their relationship as weight for the smallest point
     zeroWeight <- (max2 / (max1 * max1))
@@ -55,7 +55,7 @@
       zeroWeight <- 1/max1;
       if(zeroWeight <= 0) {
         # let's take the smallest finite weight then
-        zeroWeight = base::min(weights[base::is.finite(weights)]);
+        zeroWeight = min(weights[is.finite(weights)]);
         if(zeroWeight <= 0) {
           # no dice, we can use the default rmse
           return(NULL);
@@ -65,6 +65,6 @@
   }
 
   # replace all in-finite weights with the weight for the zero value
-  weights[!base::is.finite(weights)] <- zeroWeight;
+  weights[!is.finite(weights)] <- zeroWeight;
   return(weights);
 }

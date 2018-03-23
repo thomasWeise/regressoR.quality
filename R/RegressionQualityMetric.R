@@ -65,84 +65,84 @@ RegressionQualityMetric <- methods::setClass(
   methods::prototype(residuals=NULL, jacobian=NULL, weights=NULL),
   validity = function(object) {
     # Check the quality metric
-    if(base::is.null(object@quality) || (!(base::is.function(object@quality)))) {
+    if(is.null(object@quality) || (!(is.function(object@quality)))) {
       return("Quality function must be properly defined.");
     }
 
     # Check the arguments of the quality function
-    if(base::is.primitive(object@quality)) {
-      quality.args <- base::formals(base::args(object@quality));
+    if(is.primitive(object@quality)) {
+      quality.args <- formals(args(object@quality));
     } else {
-      quality.args <- base::formals(object@quality);
+      quality.args <- formals(object@quality);
     }
-    if ((base::length(quality.args) != 2L) ||
-        (!(base::identical(base::names(quality.args), base::c("f", "..."))))) {
+    if ((length(quality.args) != 2L) ||
+        (!(identical(names(quality.args), c("f", "..."))))) {
       return("The quality function must take exactly two arguments named 'f' and '...'.");
     }
 
     # Check residuals and jacobian function
-    if(base::is.null(object@residuals)){
-      if (!(base::is.null(object@jacobian))) {
+    if(is.null(object@residuals)){
+      if (!(is.null(object@jacobian))) {
         return("Jacobian function cannot be defined if residuals function is not defined.");
       }
     } else {
       # Check whether the residuals function is a proper function
-      if(!(base::is.function(object@residuals))) {
+      if(!(is.function(object@residuals))) {
         return("If not null, then the residuals function must be properly defined.");
       }
 
       # Check the arguments of the quality function
-      if(base::is.primitive(object@residuals)) {
-        residuals.args <- base::formals(base::args(object@residuals));
+      if(is.primitive(object@residuals)) {
+        residuals.args <- formals(args(object@residuals));
       } else {
-        residuals.args <- base::formals(object@residuals);
+        residuals.args <- formals(object@residuals);
       }
-      if ((base::length(residuals.args) != 2L) ||
-          (!(base::identical(base::names(residuals.args), base::c("f", "..."))))) {
+      if ((length(residuals.args) != 2L) ||
+          (!(identical(names(residuals.args), c("f", "..."))))) {
         return("If specified, the residuals function must take exactly two arguments two arguments named 'f' and '...'.");
       }
 
-      if(!(base::is.null(object@jacobian))) {
+      if(!(is.null(object@jacobian))) {
 
         # Check whether the jacobian function is a proper function
-        if(!(base::is.function(object@jacobian))) {
+        if(!(is.function(object@jacobian))) {
           return("If not null, then the jacobian function must be properly defined.");
         }
 
         # Check the arguments of the quality function
-        if(base::is.primitive(object@jacobian)) {
-          jacobian.args <- base::formals(base::args(object@jacobian));
+        if(is.primitive(object@jacobian)) {
+          jacobian.args <- formals(args(object@jacobian));
         } else {
-          jacobian.args <- base::formals(object@jacobian);
+          jacobian.args <- formals(object@jacobian);
         }
-        if ((base::length(jacobian.args) != 2L) ||
-            (!(base::identical(base::names(jacobian.args), base::c("gradient", "..."))))) {
+        if ((length(jacobian.args) != 2L) ||
+            (!(identical(names(jacobian.args), c("gradient", "..."))))) {
           return("If specified, the jacobian function must take exactly two arguments two arguments named 'gradient' and '...'.");
         }
       }
     }
 
     # Check x and y vectors
-    if(base::is.null(object@x) ||
-       (!(base::is.vector(object@x)))){
+    if(is.null(object@x) ||
+       (!(is.vector(object@x)))){
       return("x must be a non-null vector.");
     }
-    len <- base::length(object@x);
+    len <- length(object@x);
     if(len <= 0L) {
       return("Length of x vector cannot be 0.");
     }
 
-    if(base::is.null(object@y) ||
-       (!(base::is.vector(object@y)))){
+    if(is.null(object@y) ||
+       (!(is.vector(object@y)))){
       return("y must be a non-null vector.");
     }
-    if(len != base::length(object@y)) {
+    if(len != length(object@y)) {
       return("Length of x and y vector must be the same.");
     }
 
-    if(!(base::is.null(object@weights))) {
-      if((!(base::is.vector(object@weights))) ||
-         (base::length(object@weights) != len)) {
+    if(!(is.null(object@weights))) {
+      if((!(is.vector(object@weights))) ||
+         (length(object@weights) != len)) {
         return("If weights vector is specified, it must have the same length as the x and y vector.");
       }
     }
@@ -171,14 +171,14 @@ RegressionQualityMetric.new <- function(quality, x, y, residuals=NULL, jacobian=
                          residuals=residuals,
                          jacobian=jacobian,
                          weights=weights);
-  result <- base::force(result);
-  result@quality <- base::force(result@quality);
-  result@x <- base::force(result@x);
-  result@y <- base::force(result@y);
-  result@residuals <- base::force(result@residuals);
-  result@jacobian <- base::force(result@jacobian);
-  result@weights <- base::force(result@weights);
-  result <- base::force(result);
+  result <- force(result);
+  result@quality <- force(result@quality);
+  result@x <- force(result@x);
+  result@y <- force(result@y);
+  result@residuals <- force(result@residuals);
+  result@jacobian <- force(result@jacobian);
+  result@weights <- force(result@weights);
+  result <- force(result);
   methods::validObject(result);
   return(result);
 }

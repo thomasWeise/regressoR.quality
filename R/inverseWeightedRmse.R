@@ -33,4 +33,4 @@
 #' @seealso RegressionQualityMetric.new
 #' @seealso RegressionQualityMetric.weightedRmse
 RegressionQualityMetric.inverseWeightedRmse <- function(x, y)
-  RegressionQualityMetric.weightedRmse(x, y, .fixInverseAbsoluteWeights(base::abs(y)))
+  RegressionQualityMetric.weightedRmse(x, y, .fixInverseAbsoluteWeights(abs(y)))

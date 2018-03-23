@@ -19,4 +19,4 @@
 #' @seealso RegressionQualityMetric.weightedRmse
 #' @seealso RegressionQualityMetric.inverseWeightedRmse
 RegressionQualityMetric.sqrtInverseWeightedRmse <- function(x, y)
-  RegressionQualityMetric.weightedRmse(x, y, .fixInverseAbsoluteWeights(base::sqrt(base::abs(y))))
+  RegressionQualityMetric.weightedRmse(x, y, .fixInverseAbsoluteWeights(sqrt(abs(y))))

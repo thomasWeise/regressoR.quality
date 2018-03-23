@@ -20,15 +20,15 @@
 #' @seealso RegressionQualityMetric.new
 #' @seealso RegressionQualityMetric.rmse
 RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
-   weights <- base::force(weights);
-   if(base::is.null(weights) || (base::length(weights) <= 1L)) {
+   weights <- force(weights);
+   if(is.null(weights) || (length(weights) <= 1L)) {
      result <- RegressionQualityMetric.new(
        quality = function(f, ...) {
          z <- (y - f(x, ...));
-         base::sqrt(base::mean( z*z ) ) },
+         sqrt(mean( z*z ) ) },
        residuals = function(f, ...) (y - f(x, ...)),
        jacobian = function(gradient, ...)
-         -base::c(base::do.call(base::rbind, base::lapply(X=x, FUN=gradient))),
+         -c(do.call(rbind, lapply(X=x, FUN=gradient))),
        x = x,
        y = y,
        weights = weights
@@ -37,22 +37,21 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
      result <- RegressionQualityMetric.new(
                   quality = function(f, ...) {
                     z <- ( (y - f(x, ...)) * weights);
-                    base::sqrt( base::mean( z*z ) ) },
+                    sqrt( mean( z*z ) ) },
                   residuals = function(f, ...) ((y - f(x, ...)) * weights),
                   jacobian = function(gradient, ...)
-                    -weights * base::c(base::do.call(base::rbind,
-                                       base::lapply(X=x, FUN=gradient))),
+                    -weights * c(do.call(rbind, lapply(X=x, FUN=gradient))),
                   x = x,
                   y = y,
                   weights = weights
     );
    }
-  result <- base::force(result);
-  result@quality <- base::force(result@quality);
-  result@residuals <- base::force(result@residuals);
-  result@jacobian <- base::force(result@jacobian);
-  result@x <- base::force(result@x);
-  result@y <- base::force(result@y);
+  result <- force(result);
+  result@quality <- force(result@quality);
+  result@residuals <- force(result@residuals);
+  result@jacobian <- force(result@jacobian);
+  result@x <- force(result@x);
+  result@y <- force(result@y);
   result@weights <- force(result@weights);
   result <- force(result);
   return(result);
