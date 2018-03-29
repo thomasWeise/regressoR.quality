@@ -54,15 +54,15 @@ setClassUnion(".regressoR.quality.vectorOrNULL", c("numeric","NULL"))
 #' @seealso new
 #' @importFrom methods setClass representation prototype
 #' @exportClass RegressionQualityMetric
-RegressionQualityMetric <- methods::setClass(
+RegressionQualityMetric <- setClass(
   Class = "RegressionQualityMetric",
-  representation = methods::representation(quality="function",
-                                           x="numeric",
-                                           y="numeric",
-                                           residuals=".regressoR.quality.functionOrNULL",
-                                           jacobian=".regressoR.quality.functionOrNULL",
-                                           weights=".regressoR.quality.vectorOrNULL"),
-  methods::prototype(residuals=NULL, jacobian=NULL, weights=NULL),
+  representation = representation(quality="function",
+                                  x="numeric",
+                                  y="numeric",
+                                  residuals=".regressoR.quality.functionOrNULL",
+                                  jacobian=".regressoR.quality.functionOrNULL",
+                                  weights=".regressoR.quality.vectorOrNULL"),
+  prototype(residuals=NULL, jacobian=NULL, weights=NULL),
   validity = function(object) {
     # Check the quality metric
     if(is.null(object@quality) || (!(is.function(object@quality)))) {
@@ -164,7 +164,7 @@ RegressionQualityMetric <- methods::setClass(
 #' @export RegressionQualityMetric.new
 #' @importFrom methods new validObject
 RegressionQualityMetric.new <- function(quality, x, y, residuals=NULL, jacobian=NULL, weights=NULL) {
-  result <- methods::new("RegressionQualityMetric",
+  result <- new("RegressionQualityMetric",
                          quality=quality,
                          x=x,
                          y=y,
@@ -179,6 +179,6 @@ RegressionQualityMetric.new <- function(quality, x, y, residuals=NULL, jacobian=
   result@jacobian <- force(result@jacobian);
   result@weights <- force(result@weights);
   result <- force(result);
-  methods::validObject(result);
+  validObject(result);
   return(result);
 }

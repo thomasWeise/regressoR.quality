@@ -1,7 +1,7 @@
 Package: regressoR.quality
 Type: Package
 Title: An R Package Providing Quality Metrics for Input/Output Regression
-Version: 0.8.2
+Version: 0.8.3
 Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Description: This package provides quality metrics to measure the error of
