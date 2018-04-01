@@ -31,8 +31,8 @@ test_that("Test rmse", {
   expect_equal(rmse@quality(f, testpar), sqrt(mean(residuals^2)))
 
   jacobian <- rmse@jacobian(gradient, testpar)
-  expect_equal(is.vector(jacobian), TRUE)
-  expect_equal(length(jacobian), length(x)*length(testpar))
+  expect_equal(is.matrix(jacobian), TRUE)
+  expect_equal(dim(jacobian), c(length(x),length(testpar)))
   i <- 0
   for(j in 1:length(testpar)) {
     for(k in 1:length(x)) {
@@ -82,8 +82,8 @@ test_that("Test rmse (2)", {
   expect_equal(rmse@quality(f, testpar), sqrt(mean(residuals^2)))
 
   jacobian <- rmse@jacobian(gradient, testpar)
-  expect_equal(is.vector(jacobian), TRUE)
-  expect_equal(length(jacobian), length(x)*length(testpar))
+  expect_equal(is.matrix(jacobian), TRUE)
+  expect_equal(dim(jacobian), c(length(x),length(testpar)))
   i <- 0
   for(j in 1:length(testpar)) {
     for(k in 1:length(x)) {

@@ -28,7 +28,7 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
          sqrt(mean( z*z ) ) },
        residuals = function(f, ...) (y - f(x, ...)),
        jacobian = function(gradient, ...)
-         -c(do.call(rbind, lapply(X=x, FUN=gradient, ...))),
+         -do.call(rbind, lapply(X=x, FUN=gradient, ...)),
        x = x,
        y = y,
        weights = weights
@@ -40,7 +40,7 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
                     sqrt( mean( z*z ) ) },
                   residuals = function(f, ...) ((y - f(x, ...)) * weights),
                   jacobian = function(gradient, ...)
-                    -weights * c(do.call(rbind, lapply(X=x, FUN=gradient, ...))),
+                    -weights * do.call(rbind, lapply(X=x, FUN=gradient, ...)),
                   x = x,
                   y = y,
                   weights = weights
