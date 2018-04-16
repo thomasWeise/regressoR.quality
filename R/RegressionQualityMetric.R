@@ -1,10 +1,3 @@
-# Either a \code{function} or \code{NULL}
-#' @importFrom methods setClassUnion
-setClassUnion(".regressoR.quality.functionOrNULL", c("function","NULL"))
-# Either a \code{numeric} \code{vector} or \code{NULL}
-#' @importFrom methods setClassUnion
-setClassUnion(".regressoR.quality.vectorOrNULL", c("numeric","NULL"))
-
 #' @title A Quality RegressionQualityMetric for Fittable Models
 #' @description A quality metric allows us to judge how well a model fits to
 #'   some \code{x-y} data.
@@ -53,15 +46,16 @@ setClassUnion(".regressoR.quality.vectorOrNULL", c("numeric","NULL"))
 #'   which case, all weights will be \code{1})
 #' @seealso new
 #' @importFrom methods setClass representation prototype
+#' @importClassesFrom utilizeR functionOrNULL numericOrNULL
 #' @exportClass RegressionQualityMetric
 RegressionQualityMetric <- setClass(
   Class = "RegressionQualityMetric",
   representation = representation(quality="function",
                                   x="numeric",
                                   y="numeric",
-                                  residuals=".regressoR.quality.functionOrNULL",
-                                  jacobian=".regressoR.quality.functionOrNULL",
-                                  weights=".regressoR.quality.vectorOrNULL"),
+                                  residuals="functionOrNULL",
+                                  jacobian="functionOrNULL",
+                                  weights="numericOrNULL"),
   prototype(residuals=NULL, jacobian=NULL, weights=NULL),
   validity = function(object) {
     # Check the quality metric

@@ -32,9 +32,11 @@ LazyData: true
 URL: http://www.github.com/thomasWeise/regressoR.quality
 BugReports: http://www.github.com/thomasWeise/regressoR.quality/issues
 Imports: methods (>= 3.3.2),
-         stats (>= 3.3.2)
+         stats (>= 3.3.2),
+         utilizeR (>= 0.8.1)
 Suggests: testthat (>= 2.0.0),
           roxygen2 (>= 6.0.1)
+Remotes: github::thomasWeise/utilizeR
 Collate: 
     'RegressionQualityMetric.R'
     'fixInverseAbsoluteWeights.R'
