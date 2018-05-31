@@ -47,6 +47,7 @@
 #' @seealso new
 #' @importFrom methods setClass representation prototype
 #' @importClassesFrom utilizeR functionOrNULL numericOrNULL
+#' @importFrom utilizeR function.args
 #' @exportClass RegressionQualityMetric
 RegressionQualityMetric <- setClass(
   Class = "RegressionQualityMetric",
@@ -62,15 +63,8 @@ RegressionQualityMetric <- setClass(
     if(is.null(object@quality) || (!(is.function(object@quality)))) {
       return("Quality function must be properly defined.");
     }
-
     # Check the arguments of the quality function
-    if(is.primitive(object@quality)) {
-      quality.args <- formals(args(object@quality));
-    } else {
-      quality.args <- formals(object@quality);
-    }
-    if ((length(quality.args) != 2L) ||
-        (!(identical(names(quality.args), c("f", "..."))))) {
+    if (!(identical(function.args(object@quality), c("f", "...")))) {
       return("The quality function must take exactly two arguments named 'f' and '...'.");
     }
 
@@ -84,15 +78,8 @@ RegressionQualityMetric <- setClass(
       if(!(is.function(object@residuals))) {
         return("If not null, then the residuals function must be properly defined.");
       }
-
       # Check the arguments of the quality function
-      if(is.primitive(object@residuals)) {
-        residuals.args <- formals(args(object@residuals));
-      } else {
-        residuals.args <- formals(object@residuals);
-      }
-      if ((length(residuals.args) != 2L) ||
-          (!(identical(names(residuals.args), c("f", "..."))))) {
+      if (!(identical(function.args(object@residuals), c("f", "...")))) {
         return("If specified, the residuals function must take exactly two arguments two arguments named 'f' and '...'.");
       }
 
@@ -102,23 +89,15 @@ RegressionQualityMetric <- setClass(
         if(!(is.function(object@jacobian))) {
           return("If not null, then the jacobian function must be properly defined.");
         }
-
         # Check the arguments of the quality function
-        if(is.primitive(object@jacobian)) {
-          jacobian.args <- formals(args(object@jacobian));
-        } else {
-          jacobian.args <- formals(object@jacobian);
-        }
-        if ((length(jacobian.args) != 2L) ||
-            (!(identical(names(jacobian.args), c("gradient", "..."))))) {
+        if (!(identical(function.args(object@jacobian), c("gradient", "...")))) {
           return("If specified, the jacobian function must take exactly two arguments two arguments named 'gradient' and '...'.");
         }
       }
     }
 
     # Check x and y vectors
-    if(is.null(object@x) ||
-       (!(is.vector(object@x)))){
+    if(is.null(object@x) || (!(is.vector(object@x)))){
       return("x must be a non-null vector.");
     }
     len <- length(object@x);
@@ -126,8 +105,7 @@ RegressionQualityMetric <- setClass(
       return("Length of x vector cannot be 0.");
     }
 
-    if(is.null(object@y) ||
-       (!(is.vector(object@y)))){
+    if(is.null(object@y) || (!(is.vector(object@y)))){
       return("y must be a non-null vector.");
     }
     if(len != length(object@y)) {

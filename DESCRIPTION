@@ -1,7 +1,7 @@
 Package: regressoR.quality
 Type: Package
 Title: An R Package Providing Quality Metrics for Input/Output Regression
-Version: 0.8.4
+Version: 0.8.5
 Author: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Maintainer: Dr. Thomas Weise <tweise@hfuu.edu.cn>
 Description: This package provides quality metrics to measure the error of
@@ -33,7 +33,7 @@ URL: http://www.github.com/thomasWeise/regressoR.quality
 BugReports: http://www.github.com/thomasWeise/regressoR.quality/issues
 Imports: methods (>= 3.3.2),
          stats (>= 3.3.2),
-         utilizeR (>= 0.8.1)
+         utilizeR (>= 0.8.4)
 Suggests: testthat (>= 2.0.0),
           roxygen2 (>= 6.0.1)
 Depends: R (>= 3.3.0)
