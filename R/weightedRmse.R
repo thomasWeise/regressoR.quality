@@ -29,10 +29,11 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
        residuals = function(f, ...) (y - f(x, ...)),
        jacobian = function(gradient, ...)
          #-do.call(rbind, lapply(X=x, FUN=gradient, ...)),
-         -matrix(c(gradient(x, ...)), nrow=length(x)),
+         #-t(sapply(X=x, FUN=gradient, USE.NAMES=FALSE, simplify="matrix", ...)),
+         -t(matrix(unlist(lapply(X=x, FUN=gradient, ...), use.names=FALSE), ncol=length(x))),
        x = x,
        y = y,
-       weights = weights
+       weights = NULL
      );
    } else {
      result <- RegressionQualityMetric.new(
@@ -42,7 +43,8 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
                   residuals = function(f, ...) ((y - f(x, ...)) * weights),
                   jacobian = function(gradient, ...)
                     #-weights * do.call(rbind, lapply(X=x, FUN=gradient, ...)),
-                    -weights * matrix(c(gradient(x, ...)), nrow=length(x)),
+                    #-weights * t(sapply(X=x, FUN=gradient, USE.NAMES=FALSE, simplify="matrix", ...)),
+                    -weights * t(matrix(unlist(lapply(X=x, FUN=gradient, ...), use.names=FALSE), ncol=length(x))),
                   x = x,
                   y = y,
                   weights = weights
