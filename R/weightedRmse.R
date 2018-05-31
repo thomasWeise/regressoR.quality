@@ -30,7 +30,8 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
        jacobian = function(gradient, ...)
          #-do.call(rbind, lapply(X=x, FUN=gradient, ...)),
          #-t(sapply(X=x, FUN=gradient, USE.NAMES=FALSE, simplify="matrix", ...)),
-         -t(matrix(unlist(lapply(X=x, FUN=gradient, ...), use.names=FALSE), ncol=length(x))),
+         #-t(matrix(unlist(lapply(X=x, FUN=gradient, ...), use.names=FALSE), ncol=length(x))),
+         -t(vapply(X=x, FUN=gradient, FUN.VALUE=gradient(x[1L], ...), ...)),
        x = x,
        y = y,
        weights = NULL
@@ -44,7 +45,7 @@ RegressionQualityMetric.weightedRmse <- function(x, y, weights=NULL) {
                   jacobian = function(gradient, ...)
                     #-weights * do.call(rbind, lapply(X=x, FUN=gradient, ...)),
                     #-weights * t(sapply(X=x, FUN=gradient, USE.NAMES=FALSE, simplify="matrix", ...)),
-                    -weights * t(matrix(unlist(lapply(X=x, FUN=gradient, ...), use.names=FALSE), ncol=length(x))),
+                    -weights * t(vapply(X=x, FUN=gradient, FUN.VALUE=gradient(x[1L], ...), ...)),
                   x = x,
                   y = y,
                   weights = weights
